@@ -7,6 +7,19 @@
 **GitHub Repository:** https://github.com/maryam734/ai-resume-optimizerer
 
 ---
+## Screenshots
+
+### Home Page
+![Home Page](screenshots/...)
+
+### Resume Optimization
+![Resume Optimization](screenshots/...)
+
+### Optimized Resume
+![Optimized Resume](screenshots/...)
+
+### AI-Based Insights
+![AI-Based Insights](screenshots/...)
 
 ## Overview
 
