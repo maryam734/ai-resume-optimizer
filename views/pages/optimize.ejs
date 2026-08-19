@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Optimize Resume | Resume Optimizer
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <style>
+
+        /* ==================================================
+           PAGE
+        ================================================== */
+
+        .optimize-page {
+            min-height: calc(100vh - 140px);
+            padding: 65px 0 80px;
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(37, 99, 235, 0.07),
+                    transparent 32%
+                ),
+                linear-gradient(
+                    180deg,
+                    #f8fbff 0%,
+                    #ffffff 100%
+                );
+        }
+
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        .optimize-header {
+            max-width: 800px;
+            margin: 0 auto 42px;
+            text-align: center;
+        }
+
+        .optimize-header .eyebrow {
+            margin-bottom: 10px;
+        }
+
+        .optimize-header h1 {
+            margin: 0 0 16px;
+            font-size: clamp(34px, 4vw, 50px);
+            line-height: 1.1;
+            letter-spacing: -1.2px;
+        }
+
+        .optimize-header h1 span {
+            color: #2563eb;
+        }
+
+        .optimize-header > p:last-child {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #64748b;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+
+        /* ==================================================
+           GRID
+        ================================================== */
+
+        .optimization-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+
+        /* ==================================================
+           CARDS
+        ================================================== */
+
+        .optimizer-card {
+            background: #ffffff;
+            border: 1px solid #dbe5f0;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow:
+                0 12px 35px rgba(15, 23, 42, 0.05);
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .card-number {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eff6ff;
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .card-heading h2 {
+            margin: 0 0 5px;
+            font-size: 18px;
+            color: #0f172a;
+        }
+
+        .card-heading p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.5;
+            font-size: 13px;
+        }
+
+
+        /* ==================================================
+           UPLOAD AREA
+        ================================================== */
+
+        .upload-area {
+            position: relative;
+            min-height: 265px;
+            padding: 30px 20px;
+            border: 2px dashed #bfdbfe;
+            border-radius: 15px;
+            background: #f8fbff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #60a5fa;
+            background: #eff6ff;
+            transform: translateY(-1px);
+        }
+
+        .upload-area.dragover {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .upload-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #dbeafe;
+            color: #2563eb;
+            font-size: 25px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .upload-area h3 {
+            margin: 0 0 6px;
+            color: #0f172a;
+            font-size: 17px;
+        }
+
+        .upload-area p {
+            margin: 0 0 9px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .upload-note {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .upload-area input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .selected-file {
+            display: none;
+            margin-top: 14px;
+            padding: 11px 13px;
+            border-radius: 9px;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #047857;
+            font-size: 13px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .selected-file.visible {
+            display: block;
+        }
+
+
+        /* ==================================================
+           JOB DESCRIPTION
+        ================================================== */
+
+        .job-description {
+            width: 100%;
+            min-height: 265px;
+            resize: vertical;
+            box-sizing: border-box;
+            padding: 16px;
+            border: 1px solid #dbe2ea;
+            border-radius: 13px;
+            outline: none;
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.65;
+            color: #334155;
+            background: #ffffff;
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .job-description::placeholder {
+            color: #94a3b8;
+        }
+
+        .job-description:focus {
+            border-color: #60a5fa;
+            box-shadow:
+                0 0 0 4px rgba(37, 99, 235, 0.08);
+        }
+
+        .textarea-footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .textarea-note,
+        .character-count {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .character-count {
+            white-space: nowrap;
+        }
+
+
+        /* ==================================================
+           ANALYZE ACTION
+        ================================================== */
+
+        .analyze-area {
+            max-width: 1050px;
+            margin: 28px auto 0;
+            text-align: center;
+        }
+
+        .analyze-btn {
+            min-width: 230px;
+            padding: 15px 26px;
+            font-size: 15px;
+            box-shadow:
+                0 12px 25px rgba(37, 99, 235, 0.17);
+        }
+
+        .analyze-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.65;
+            box-shadow: none;
+        }
+
+        .analyze-area > p {
+            margin: 11px 0 0;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .privacy-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .privacy-note span {
+            color: #16a34a;
+            font-weight: 800;
+        }
+
+
+        /* ==================================================
+           NAVIGATION
+        ================================================== */
+
+        .nav-history-disabled {
+            color: #94a3b8 !important;
+            cursor: default;
+        }
+
+
+        /* ==================================================
+           MOBILE
+        ================================================== */
+
+        @media (max-width: 850px) {
+
+            .optimization-grid {
+                grid-template-columns: 1fr;
+                max-width: 650px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .optimize-page {
+                padding: 45px 0 60px;
+            }
+
+            .optimize-header {
+                padding: 0 15px;
+                margin-bottom: 30px;
+            }
+
+            .optimize-header h1 {
+                font-size: 32px;
+            }
+
+            .optimizer-card {
+                padding: 21px;
+            }
+
+            .upload-area,
+            .job-description {
+                min-height: 235px;
+            }
+
+            .textarea-footer {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .analyze-btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         NAVBAR
+    ================================================== -->
+
+    <nav class="navbar">
+
+        <div class="container nav-container">
+
+            <a
+                href="/"
+                class="logo"
+            >
+                Resume<span>Optimizer</span>
+            </a>
+
+            <div class="nav-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <span class="nav-history-disabled">
+                    History
+                </span>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ==================================================
+         MAIN
+    ================================================== -->
+
+    <main class="optimize-page">
+
+        <div class="container">
+
+
+            <!-- ==================================================
+                 HEADER
+            ================================================== -->
+
+            <div class="optimize-header">
+
+                <p class="eyebrow">
+                    RESUME OPTIMIZATION
+                </p>
+
+                <h1>
+                    Optimize your resume for
+                    <span>the job you want.</span>
+                </h1>
+
+                <p>
+                    Upload your current resume and provide the target
+                    job description. Resume Optimizer will analyze the
+                    match, identify skill gaps, and generate AI-powered
+                    improvement recommendations.
+                </p>
+
+            </div>
+
+
+            <!-- ==================================================
+                 FORM
+            ================================================== -->
+
+            <form
+                action="/optimize/analyze"
+                method="POST"
+                enctype="multipart/form-data"
+                id="optimization-form"
+            >
+
+
+                <div class="optimization-grid">
+
+
+                    <!-- ==================================================
+                         RESUME UPLOAD
+                    ================================================== -->
+
+                    <div class="optimizer-card">
+
+                        <div class="card-heading">
+
+                            <div class="card-number">
+                                01
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Upload your resume
+                                </h2>
+
+                                <p>
+                                    PDF or DOCX • Maximum 5 MB
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <label
+                            for="resume"
+                            class="upload-area"
+                            id="upload-area"
+                        >
+
+                            <div class="upload-icon">
+                                ↑
+                            </div>
+
+                            <h3>
+                                Drop your resume here
+                            </h3>
+
+                            <p>
+                                or click to browse from your computer
+                            </p>
+
+                            <span class="upload-note">
+                                Supported formats: PDF and DOCX
+                            </span>
+
+
+                            <input
+                                type="file"
+                                id="resume"
+                                name="resume"
+                                accept=".pdf,.doc,.docx"
+                                required
+                            >
+
+                        </label>
+
+
+                        <div
+                            class="selected-file"
+                            id="selected-file"
+                        >
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================================
+                         JOB DESCRIPTION
+                    ================================================== -->
+
+                    <div class="optimizer-card">
+
+                        <div class="card-heading">
+
+                            <div class="card-number">
+                                02
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Target job description
+                                </h2>
+
+                                <p>
+                                    Paste the role you are applying for
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <textarea
+                            class="job-description"
+                            name="jobDescription"
+                            id="jobDescription"
+                            placeholder="Paste the complete job description here...
+
+Example:
+We are looking for a Full Stack Developer with experience in JavaScript, React, Node.js..."
+                            required
+                        ></textarea>
+
+
+                        <div class="textarea-footer">
+
+                            <p class="textarea-note">
+                                A complete JD gives more accurate matching.
+                            </p>
+
+                            <p
+                                class="character-count"
+                                id="character-count"
+                            >
+                                0 characters
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================================
+                     ACTION
+                ================================================== -->
+
+                <div class="analyze-area">
+
+                    <button
+                        type="submit"
+                        class="primary-btn analyze-btn"
+                        id="analyze-btn"
+                    >
+                        ✨ Analyze My Resume
+                    </button>
+
+                    <p>
+                        Your resume will be compared against the target role.
+                    </p>
+
+                    <div class="privacy-note">
+
+                        <span>✓</span>
+
+                        Resume content is used only for the analysis flow.
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="footer">
+
+        <div class="container footer-container">
+
+            <div>
+
+                <a
+                    href="/"
+                    class="logo"
+                >
+                    Resume<span>Optimizer</span>
+                </a>
+
+                <p>
+                    AI-powered resume optimization for candidates.
+                </p>
+
+            </div>
+
+
+            <p class="copyright">
+                © 2026 Resume Optimizer. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- ==================================================
+         PAGE SCRIPT
+    ================================================== -->
+
+    <script>
+
+        const fileInput =
+            document.getElementById("resume");
+
+        const uploadArea =
+            document.getElementById("upload-area");
+
+        const selectedFile =
+            document.getElementById("selected-file");
+
+        const jobDescription =
+            document.getElementById("jobDescription");
+
+        const characterCount =
+            document.getElementById("character-count");
+
+        const form =
+            document.getElementById("optimization-form");
+
+        const analyzeButton =
+            document.getElementById("analyze-btn");
+
+
+        /* ==================================================
+           FILE SELECTION
+        ================================================== */
+
+        fileInput.addEventListener(
+            "change",
+            function () {
+
+                if (!fileInput.files.length) {
+                    selectedFile.textContent = "";
+                    selectedFile.classList.remove("visible");
+                    return;
+                }
+
+                const file =
+                    fileInput.files[0];
+
+                selectedFile.textContent =
+                    "✓ Selected: " + file.name;
+
+                selectedFile.classList.add("visible");
+
+            }
+        );
+
+
+        /* ==================================================
+           DRAG & DROP
+        ================================================== */
+
+        uploadArea.addEventListener(
+            "dragover",
+            function (event) {
+
+                event.preventDefault();
+
+                uploadArea.classList.add("dragover");
+
+            }
+        );
+
+
+        uploadArea.addEventListener(
+            "dragleave",
+            function () {
+
+                uploadArea.classList.remove("dragover");
+
+            }
+        );
+
+
+        uploadArea.addEventListener(
+            "drop",
+            function (event) {
+
+                event.preventDefault();
+
+                uploadArea.classList.remove("dragover");
+
+                const files =
+                    event.dataTransfer.files;
+
+                if (!files.length) {
+                    return;
+                }
+
+                fileInput.files = files;
+
+                const file =
+                    files[0];
+
+                selectedFile.textContent =
+                    "✓ Selected: " + file.name;
+
+                selectedFile.classList.add("visible");
+
+            }
+        );
+
+
+        /* ==================================================
+           CHARACTER COUNT
+        ================================================== */
+
+        jobDescription.addEventListener(
+            "input",
+            function () {
+
+                const count =
+                    jobDescription.value.length;
+
+                characterCount.textContent =
+                    count + " character" +
+                    (count === 1 ? "" : "s");
+
+            }
+        );
+
+
+        /* ==================================================
+           FORM SUBMIT
+        ================================================== */
+
+        form.addEventListener(
+            "submit",
+            function () {
+
+                analyzeButton.disabled = true;
+
+                analyzeButton.textContent =
+                    "Analyzing Resume...";
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

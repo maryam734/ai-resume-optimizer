@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Optimized Resume | Resume Optimizer</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <style>
+
+        /* ==================================================
+           PAGE
+        ================================================== */
+
+        .optimized-page {
+            padding: 40px 0 60px;
+        }
+
+
+        /* ==================================================
+           INTRO
+        ================================================== */
+
+        .optimized-header {
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto 30px;
+        }
+
+        .optimized-header .eyebrow {
+            margin-bottom: 8px;
+        }
+
+        .optimized-header h1 {
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .optimized-header p {
+            color: #64748b;
+            margin: 0;
+        }
+
+
+        /* ==================================================
+           RESUME PAPER
+        ================================================== */
+
+        .resume-paper {
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #dbe2ea;
+            border-radius: 6px;
+            padding: 42px 48px;
+            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+            color: #1e293b;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        .resume-header {
+            text-align: center;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 12px;
+        }
+
+        .resume-name {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+            color: #0f172a;
+            margin-bottom: 7px;
+            text-transform: uppercase;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+            font-size: 10.5px;
+            color: #475569;
+            line-height: 1.4;
+        }
+
+        .contact-item {
+            white-space: nowrap;
+        }
+
+        .contact-link {
+            color: #334155;
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        .contact-separator {
+            color: #94a3b8;
+        }
+
+
+        /* ==================================================
+           RESUME SECTIONS
+        ================================================== */
+
+        .resume-section {
+            margin-top: 15px;
+        }
+
+        .resume-section h3 {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: #111827;
+            border-bottom: 1px solid #94a3b8;
+            padding-bottom: 4px;
+            margin: 0 0 7px;
+        }
+
+        .resume-text {
+            font-size: 10.5px;
+            line-height: 1.45;
+            color: #334155;
+            white-space: pre-line;
+        }
+
+
+        /* ==================================================
+           SKILLS
+        ================================================== */
+
+        .skills-text {
+            font-size: 10.5px;
+            line-height: 1.45;
+            color: #334155;
+        }
+
+
+        /* ==================================================
+           EXPERIENCE / PROJECTS
+        ================================================== */
+
+        .resume-item {
+            margin-bottom: 9px;
+        }
+
+        .resume-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .resume-item-title {
+            font-size: 10.8px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 3px;
+        }
+
+        .resume-item-content {
+            color: #334155;
+            font-size: 10.3px;
+            line-height: 1.4;
+        }
+
+        .resume-bullet-list {
+            margin: 0;
+            padding-left: 17px;
+        }
+
+        .resume-bullet-list li {
+            margin-bottom: 2px;
+            padding-left: 1px;
+        }
+
+        .resume-bullet-list li:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /* ==================================================
+           ACTIONS
+        ================================================== */
+
+        .action-area {
+            text-align: center;
+            margin: 28px auto 0;
+            max-width: 850px;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            margin: 4px;
+        }
+
+        .primary-btn {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .primary-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary-btn {
+            background: #f1f5f9;
+            color: #334155;
+        }
+
+        .secondary-btn:hover {
+            background: #e2e8f0;
+        }
+
+
+        /* ==================================================
+           MOBILE
+        ================================================== */
+
+        @media (max-width: 768px) {
+
+            .optimized-page {
+                padding: 25px 0 40px;
+            }
+
+            .optimized-header {
+                padding: 0 15px;
+            }
+
+            .optimized-header h1 {
+                font-size: 26px;
+            }
+
+            .resume-paper {
+                width: calc(100% - 20px);
+                padding: 25px 22px;
+                border-radius: 5px;
+            }
+
+            .resume-name {
+                font-size: 21px;
+            }
+
+            .contact-info {
+                gap: 4px 9px;
+                font-size: 9.5px;
+            }
+
+            .resume-text,
+            .skills-text {
+                font-size: 10px;
+            }
+
+            .resume-item-content {
+                font-size: 9.8px;
+            }
+        }
+
+
+        /* ==================================================
+           PRINT / PDF
+        ================================================== */
+
+        @page {
+            size: A4;
+            margin: 0.42in;
+        }
+
+        @media print {
+
+            html,
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: #ffffff !important;
+            }
+
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .navbar,
+            .optimized-header,
+            .action-area,
+            .footer {
+                display: none !important;
+            }
+
+            .optimized-page {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .container {
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .resume-paper {
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
+
+            .resume-header {
+                padding-bottom: 7px;
+            }
+
+            .resume-name {
+                font-size: 22px;
+            }
+
+            .contact-info {
+                font-size: 8.8px;
+                gap: 3px 9px;
+            }
+
+            .contact-link {
+                color: #1e293b !important;
+                text-decoration: none !important;
+            }
+
+            .resume-section {
+                margin-top: 9px;
+                break-inside: avoid;
+            }
+
+            .resume-section h3 {
+                font-size: 10px;
+                margin-bottom: 4px;
+                padding-bottom: 2px;
+            }
+
+            .resume-text,
+            .skills-text {
+                font-size: 8.8px;
+                line-height: 1.26;
+            }
+
+            .resume-item {
+                margin-bottom: 5px;
+                break-inside: avoid;
+            }
+
+            .resume-item-title {
+                font-size: 9px;
+                margin-bottom: 1px;
+            }
+
+            .resume-item-content {
+                font-size: 8.7px;
+                line-height: 1.25;
+            }
+
+            .resume-bullet-list {
+                padding-left: 14px;
+            }
+
+            .resume-bullet-list li {
+                margin-bottom: 1px;
+            }
+
+            .resume-header,
+            .resume-section,
+            .resume-item {
+                break-inside: avoid;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         NAVBAR
+    ================================================== -->
+
+    <nav class="navbar">
+
+        <div class="container nav-container">
+
+            <a
+                href="/"
+                class="logo"
+            >
+                Resume<span>Optimizer</span>
+            </a>
+
+            <div class="nav-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/optimize">
+                    Analyze Again
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ==================================================
+         MAIN
+    ================================================== -->
+
+    <main class="optimized-page">
+
+        <div class="container">
+
+
+            <!-- ==================================================
+                 INTRO
+            ================================================== -->
+
+            <div class="optimized-header">
+
+                <p class="eyebrow">
+                    AI RESUME OPTIMIZATION
+                </p>
+
+                <h1>
+                    Your optimized resume is ready.
+                </h1>
+
+                <p>
+                    Your resume has been rewritten for clarity,
+                    ATS relevance, and concise professional presentation.
+                </p>
+
+            </div>
+
+
+            <!-- ==================================================
+                 RESUME PAPER
+            ================================================== -->
+
+            <div class="resume-paper">
+
+
+                <!-- ==================================================
+                     HEADER
+                ================================================== -->
+
+                <div class="resume-header">
+
+                    <% if (optimizedResume.name) { %>
+
+                        <div class="resume-name">
+                            <%= optimizedResume.name %>
+                        </div>
+
+                    <% } %>
+
+
+                    <div class="contact-info">
+
+                        <% if (optimizedResume.email) { %>
+
+                            <span class="contact-item">
+                                <%= optimizedResume.email %>
+                            </span>
+
+                        <% } %>
+
+
+                        <% if (optimizedResume.phone) { %>
+
+                            <% if (optimizedResume.email) { %>
+                                <span class="contact-separator">|</span>
+                            <% } %>
+
+                            <span class="contact-item">
+                                <%= optimizedResume.phone %>
+                            </span>
+
+                        <% } %>
+
+
+                        <% if (optimizedResume.linkedin) { %>
+
+                            <% if (
+                                optimizedResume.email ||
+                                optimizedResume.phone
+                            ) { %>
+
+                                <span class="contact-separator">|</span>
+
+                            <% } %>
+
+                            <a
+                                class="contact-item contact-link"
+                                href="<%= optimizedResume.linkedin %>"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                LinkedIn
+                            </a>
+
+                        <% } %>
+
+
+                        <% if (optimizedResume.github) { %>
+
+                            <% if (
+                                optimizedResume.email ||
+                                optimizedResume.phone ||
+                                optimizedResume.linkedin
+                            ) { %>
+
+                                <span class="contact-separator">|</span>
+
+                            <% } %>
+
+                            <a
+                                class="contact-item contact-link"
+                                href="<%= optimizedResume.github %>"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                GitHub
+                            </a>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================================
+                     SUMMARY
+                ================================================== -->
+
+                <% if (optimizedResume.summary) { %>
+
+                    <section class="resume-section">
+
+                        <h3>
+                            Summary
+                        </h3>
+
+                        <div class="resume-text">
+                            <%= optimizedResume.summary %>
+                        </div>
+
+                    </section>
+
+                <% } %>
+
+
+                <!-- ==================================================
+                     SKILLS
+                ================================================== -->
+
+                <% if (optimizedResume.skills) { %>
+
+                    <section class="resume-section">
+
+                        <h3>
+                            Skills
+                        </h3>
+
+                        <div class="skills-text">
+                            <%= optimizedResume.skills %>
+                        </div>
+
+                    </section>
+
+                <% } %>
+
+
+                <!-- ==================================================
+                     EXPERIENCE
+                ================================================== -->
+
+                <% if (
+                    optimizedResume.experience &&
+                    optimizedResume.experience.length > 0
+                ) { %>
+
+                    <section class="resume-section">
+
+                        <h3>
+                            Experience
+                        </h3>
+
+                        <% optimizedResume.experience.forEach(
+                            function(item)
+                        { %>
+
+                            <div class="resume-item">
+
+                                <% if (item.title) { %>
+
+                                    <div class="resume-item-title">
+                                        <%= item.title %>
+                                    </div>
+
+                                <% } %>
+
+
+                                <% if (item.content) { %>
+
+                                    <div class="resume-item-content">
+
+                                        <ul class="resume-bullet-list">
+
+                                            <%
+                                                item.content
+                                                    .split(/\r?\n/)
+                                                    .map(line => line.trim())
+                                                    .filter(line => line.length > 0)
+                                                    .forEach(function(line)
+                                            { %>
+
+                                                <li>
+                                                    <%= line.replace(
+                                                        /^[-•●▪◦*]\s*/,
+                                                        ""
+                                                    ) %>
+                                                </li>
+
+                                            <% }); %>
+
+                                        </ul>
+
+                                    </div>
+
+                                <% } %>
+
+                            </div>
+
+                        <% }); %>
+
+                    </section>
+
+                <% } %>
+
+
+                <!-- ==================================================
+                     PROJECTS
+                ================================================== -->
+
+                <% if (
+                    optimizedResume.projects &&
+                    optimizedResume.projects.length > 0
+                ) { %>
+
+                    <section class="resume-section">
+
+                        <h3>
+                            Projects
+                        </h3>
+
+                        <% optimizedResume.projects.forEach(
+                            function(item)
+                        { %>
+
+                            <div class="resume-item">
+
+                                <% if (item.title) { %>
+
+                                    <div class="resume-item-title">
+                                        <%= item.title %>
+                                    </div>
+
+                                <% } %>
+
+
+                                <% if (item.content) { %>
+
+                                    <div class="resume-item-content">
+
+                                        <ul class="resume-bullet-list">
+
+                                            <%
+                                                item.content
+                                                    .split(/\r?\n/)
+                                                    .map(line => line.trim())
+                                                    .filter(line => line.length > 0)
+                                                    .forEach(function(line)
+                                            { %>
+
+                                                <li>
+                                                    <%= line.replace(
+                                                        /^[-•●▪◦*]\s*/,
+                                                        ""
+                                                    ) %>
+                                                </li>
+
+                                            <% }); %>
+
+                                        </ul>
+
+                                    </div>
+
+                                <% } %>
+
+                            </div>
+
+                        <% }); %>
+
+                    </section>
+
+                <% } %>
+
+
+                <!-- ==================================================
+                     EDUCATION
+                ================================================== -->
+
+                <% if (optimizedResume.education) { %>
+
+                    <section class="resume-section">
+
+                        <h3>
+                            Education
+                        </h3>
+
+                        <div class="resume-text">
+                            <%= optimizedResume.education %>
+                        </div>
+
+                    </section>
+
+                <% } %>
+
+
+                <!-- ==================================================
+                     CERTIFICATIONS
+                ================================================== -->
+
+                <% if (optimizedResume.certifications) { %>
+
+                    <section class="resume-section">
+
+                        <h3>
+                            Certifications
+                        </h3>
+
+                        <div class="resume-text">
+                            <%= optimizedResume.certifications %>
+                        </div>
+
+                    </section>
+
+                <% } %>
+
+
+                <!-- ==================================================
+                     ACHIEVEMENTS
+                ================================================== -->
+
+                <% if (optimizedResume.achievements) { %>
+
+                    <section class="resume-section">
+
+                        <h3>
+                            Achievements
+                        </h3>
+
+                        <div class="resume-text">
+                            <%= optimizedResume.achievements %>
+                        </div>
+
+                    </section>
+
+                <% } %>
+
+
+            </div>
+
+
+            <!-- ==================================================
+                 ACTIONS
+            ================================================== -->
+
+            <div class="action-area">
+
+                <button
+                    class="primary-btn"
+                    onclick="window.print()"
+                >
+                    🖨️ Print / Save as PDF
+                </button>
+
+                <a
+                    href="/optimize"
+                    class="secondary-btn"
+                >
+                    Analyze Another Resume
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ==================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="footer">
+
+        <div class="container footer-container">
+
+            <div>
+
+                <a
+                    href="/"
+                    class="logo"
+                >
+                    Resume<span>Optimizer</span>
+                </a>
+
+                <p>
+                    AI-powered resume optimization for candidates.
+                </p>
+
+            </div>
+
+            <p class="copyright">
+                © 2026 Resume Optimizer. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

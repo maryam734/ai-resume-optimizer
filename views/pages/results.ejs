@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analysis Results | Resume Optimizer</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .results-page {
+            padding: 60px 0 80px;
+        }
+
+        .results-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 45px;
+        }
+
+        .results-header .eyebrow {
+            margin-bottom: 10px;
+        }
+
+        .results-header h1 {
+            margin-bottom: 15px;
+        }
+
+        .results-header p {
+            color: #64748b;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .result-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+            margin-bottom: 25px;
+        }
+
+        .result-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .result-card h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #2563eb;
+            word-break: break-word;
+        }
+
+        /* =========================
+           SCORE
+        ========================= */
+
+        .score-card {
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            border: 12px solid #dbeafe;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px auto 20px;
+            background: #f8fbff;
+        }
+
+        .score-number {
+            font-size: 42px;
+            font-weight: 800;
+            color: #2563eb;
+            line-height: 1;
+        }
+
+        .score-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 8px;
+        }
+
+        .category {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: #eff6ff;
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        /* =========================
+           SCORE BREAKDOWN
+        ========================= */
+
+        .breakdown-item {
+            margin-bottom: 20px;
+        }
+
+        .breakdown-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .breakdown-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .progress {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #2563eb;
+            border-radius: 999px;
+        }
+
+        /* =========================
+           TAGS
+        ========================= */
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 9px 13px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .tag-success {
+            background: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+        }
+
+        .tag-danger {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .tag-neutral {
+            background: #f8fafc;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* =========================
+           INFO
+        ========================= */
+
+        .empty-message {
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .info-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #475569;
+        }
+
+        /* =========================
+           RULE-BASED SUGGESTIONS
+        ========================= */
+
+        .suggestions-card {
+            background: linear-gradient(
+                135deg,
+                #f8fbff,
+                #ffffff
+            );
+        }
+
+        .suggestions-intro {
+            color: #64748b;
+            margin-top: -8px;
+            margin-bottom: 22px;
+        }
+
+        .suggestion-list {
+            display: grid;
+            gap: 14px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            background: #ffffff;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+        }
+
+        .suggestion-icon {
+            flex-shrink: 0;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #eff6ff;
+            color: #2563eb;
+            font-weight: 800;
+        }
+
+        .suggestion-text {
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           AI SECTION
+        ========================= */
+
+        .ai-card {
+            background: linear-gradient(
+                135deg,
+                #f8f5ff,
+                #ffffff
+            );
+            border: 1px solid #ddd6fe;
+        }
+
+        .ai-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 11px;
+            border-radius: 999px;
+            background: #ede9fe;
+            color: #6d28d9;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+
+        .ai-intro {
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+
+        .ai-subsection {
+            margin-top: 28px;
+        }
+
+        .ai-subsection h3 {
+            margin-bottom: 12px;
+        }
+
+        .ai-advice {
+            background: #ffffff;
+            border: 1px solid #ede9fe;
+            border-radius: 12px;
+            padding: 18px;
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        .ai-summary {
+            background: #ffffff;
+            border-left: 4px solid #7c3aed;
+            border-radius: 10px;
+            padding: 18px;
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        .ai-list {
+            display: grid;
+            gap: 12px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .ai-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px;
+            background: #ffffff;
+            border: 1px solid #ede9fe;
+            border-radius: 11px;
+        }
+
+        .ai-list-icon {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f3e8ff;
+            color: #7c3aed;
+            font-weight: 800;
+        }
+
+        .ai-list-text {
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .bullet-improvement {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .bullet-box {
+            padding: 16px;
+            border-radius: 11px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+        }
+
+        .bullet-box h4 {
+            margin-top: 0;
+            margin-bottom: 9px;
+        }
+
+        .bullet-original {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .bullet-improved {
+            border-left: 4px solid #10b981;
+        }
+
+        .bullet-text {
+            color: #475569;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .ai-unavailable {
+            padding: 16px;
+            border-radius: 12px;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+        }
+
+        /* =========================
+           SECTION STATUS
+        ========================= */
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .status-detected {
+            color: #047857;
+        }
+
+        .status-missing {
+            color: #b91c1c;
+        }
+
+        /* =========================
+           RESUME PREVIEW
+        ========================= */
+
+        .resume-preview {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.7;
+            color: #334155;
+        }
+
+        /* =========================
+           ACTION
+        ========================= */
+
+        .action-area {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .secondary-btn {
+            display: inline-block;
+            padding: 13px 22px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .secondary-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-card.full-width {
+                grid-column: auto;
+            }
+
+            .results-page {
+                padding: 40px 0 60px;
+            }
+
+            .info-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .score-circle {
+                width: 145px;
+                height: 145px;
+            }
+
+            .score-number {
+                font-size: 36px;
+            }
+
+            .bullet-improvement {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-heading {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="container nav-container">
+
+            <a href="/" class="logo">
+                Resume<span>Optimizer</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/optimize">Analyze Again</a>
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN RESULTS
+    ========================= -->
+
+    <main class="results-page">
+
+        <div class="container">
+
+            <!-- HEADER -->
+
+            <div class="results-header">
+
+                <p class="eyebrow">
+                    RESUME ANALYSIS
+                </p>
+
+                <h1>
+                    Your resume analysis is ready.
+                </h1>
+
+                <p>
+                    We compared your resume against the target job
+                    description to identify strengths, gaps, and
+                    improvement opportunities.
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 TOP CARDS
+            ========================= -->
+
+            <div class="results-grid">
+
+                <!-- MATCH SCORE -->
+
+                <div class="result-card score-card">
+
+                    <h2>
+                        Job Match Score
+                    </h2>
+
+                    <div class="score-circle">
+
+                        <div class="score-number">
+                            <%= matchData.matchScore %>
+                        </div>
+
+                        <div class="score-label">
+                            out of 100
+                        </div>
+
+                    </div>
+
+                    <div class="category">
+                        <%= matchData.category %>
+                    </div>
+
+                </div>
+
+
+                <!-- RESUME INFO -->
+
+                <div class="result-card">
+
+                    <h2>
+                        Resume Information
+                    </h2>
+
+                    <div class="info-list">
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                File
+                            </span>
+
+                            <span class="file-name">
+                                <%= fileName %>
+                            </span>
+
+                        </div>
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Characters Extracted
+                            </span>
+
+                            <span>
+                                <%= resumeText.length %>
+                            </span>
+
+                        </div>
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Email
+                            </span>
+
+                            <span>
+                                <%= resumeData.email || "Not detected" %>
+                            </span>
+
+                        </div>
+
+                        <div class="info-row">
+
+                            <span class="info-label">
+                                Phone
+                            </span>
+
+                            <span>
+                                <%= resumeData.phone || "Not detected" %>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 SCORE BREAKDOWN
+            ========================= -->
+
+            <div class="result-card full-width">
+
+                <h2>
+                    Score Breakdown
+                </h2>
+
+                <div class="breakdown-item">
+
+                    <div class="breakdown-header">
+
+                        <span>
+                            Required Skills
+                        </span>
+
+                        <span>
+                            <%= matchData.breakdown.requiredSkillScore %>%
+                        </span>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            style="width: <%= matchData.breakdown.requiredSkillScore %>%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="breakdown-item">
+
+                    <div class="breakdown-header">
+
+                        <span>
+                            Preferred Skills
+                        </span>
+
+                        <span>
+                            <%= matchData.breakdown.preferredSkillScore %>%
+                        </span>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            style="width: <%= matchData.breakdown.preferredSkillScore %>%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="breakdown-item">
+
+                    <div class="breakdown-header">
+
+                        <span>
+                            Job Keywords
+                        </span>
+
+                        <span>
+                            <%= matchData.breakdown.keywordScore %>%
+                        </span>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar"
+                            style="width: <%= matchData.breakdown.keywordScore %>%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 AI POWERED INSIGHTS
+            ========================= -->
+
+            <div class="result-card full-width ai-card">
+
+                <div class="ai-heading">
+
+                    <h2>
+                        ✨ AI-Powered Resume Insights
+                    </h2>
+
+                    <% if (aiData && aiData.available) { %>
+
+                        <span class="ai-badge">
+                            GEMINI AI
+                        </span>
+
+                    <% } %>
+
+                </div>
+
+
+                <% if (aiData && aiData.available) { %>
+
+                    <p class="ai-intro">
+                        Personalized recommendations generated from
+                        your resume and the target job description.
+                    </p>
+
+
+                    <!-- Overall Advice -->
+
+                    <% if (aiData.overallAdvice) { %>
+
+                        <div class="ai-subsection">
+
+                            <h3>
+                                Overall Assessment
+                            </h3>
+
+                            <div class="ai-advice">
+                                <%= aiData.overallAdvice %>
+                            </div>
+
+                        </div>
+
+                    <% } %>
+
+
+                    <!-- Improved Summary -->
+
+                    <% if (aiData.summaryImprovement) { %>
+
+                        <div class="ai-subsection">
+
+                            <h3>
+                                ✍️ Improved Professional Summary
+                            </h3>
+
+                            <div class="ai-summary">
+                                <%= aiData.summaryImprovement %>
+                            </div>
+
+                        </div>
+
+                    <% } %>
+
+
+                    <!-- AI Suggestions -->
+
+                    <% if (
+                        aiData.suggestions &&
+                        aiData.suggestions.length > 0
+                    ) { %>
+
+                        <div class="ai-subsection">
+
+                            <h3>
+                                💡 Personalized Suggestions
+                            </h3>
+
+                            <ul class="ai-list">
+
+                                <% aiData.suggestions.forEach(function(
+                                    suggestion,
+                                    index
+                                ) { %>
+
+                                    <li class="ai-list-item">
+
+                                        <div class="ai-list-icon">
+                                            <%= index + 1 %>
+                                        </div>
+
+                                        <div class="ai-list-text">
+                                            <%= suggestion %>
+                                        </div>
+
+                                    </li>
+
+                                <% }); %>
+
+                            </ul>
+
+                        </div>
+
+                    <% } %>
+
+
+                    <!-- Keyword Advice -->
+
+                    <% if (
+                        aiData.keywordAdvice &&
+                        aiData.keywordAdvice.length > 0
+                    ) { %>
+
+                        <div class="ai-subsection">
+
+                            <h3>
+                                🔑 AI Keyword Advice
+                            </h3>
+
+                            <ul class="ai-list">
+
+                                <% aiData.keywordAdvice.forEach(function(
+                                    advice,
+                                    index
+                                ) { %>
+
+                                    <li class="ai-list-item">
+
+                                        <div class="ai-list-icon">
+                                            ✓
+                                        </div>
+
+                                        <div class="ai-list-text">
+                                            <%= advice %>
+                                        </div>
+
+                                    </li>
+
+                                <% }); %>
+
+                            </ul>
+
+                        </div>
+
+                    <% } %>
+
+
+                    <!-- Bullet Improvements -->
+
+                    <% if (
+                        aiData.bulletImprovements &&
+                        aiData.bulletImprovements.length > 0
+                    ) { %>
+
+                        <div class="ai-subsection">
+
+                            <h3>
+                                🚀 Improved Resume Bullets
+                            </h3>
+
+                            <% aiData.bulletImprovements.forEach(function(
+                                item
+                            ) { %>
+
+                                <div class="bullet-improvement">
+
+                                    <div class="bullet-box bullet-original">
+
+                                        <h4>
+                                            Current
+                                        </h4>
+
+                                        <div class="bullet-text">
+                                            <%= item.original || "Current resume bullet" %>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="bullet-box bullet-improved">
+
+                                        <h4>
+                                            AI Improvement
+                                        </h4>
+
+                                        <div class="bullet-text">
+                                            <%= item.improved || "No improvement generated." %>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            <% }); %>
+
+                        </div>
+
+                    <% } %>
+
+
+                <% } else { %>
+
+                    <div class="ai-unavailable">
+
+                        <strong>
+                            AI analysis is currently unavailable.
+                        </strong>
+
+                        <p>
+                            Your standard resume analysis is still
+                            available above. This can happen when the
+                            Gemini API quota is unavailable or the AI
+                            service cannot be reached.
+                        </p>
+
+                    </div>
+
+                <% } %>
+
+            </div>
+
+
+            <!-- =========================
+                 RULE-BASED SUGGESTIONS
+            ========================= -->
+
+            <div class="result-card full-width suggestions-card">
+
+                <h2>
+                    📝 Resume Improvement Suggestions
+                </h2>
+
+                <p class="suggestions-intro">
+                    These recommendations are generated from the
+                    resume and job-description matching analysis.
+                </p>
+
+
+                <% if (
+                    matchData.suggestions &&
+                    matchData.suggestions.length > 0
+                ) { %>
+
+                    <ul class="suggestion-list">
+
+                        <% matchData.suggestions.forEach(function(
+                            suggestion,
+                            index
+                        ) { %>
+
+                            <li class="suggestion-item">
+
+                                <div class="suggestion-icon">
+                                    <%= index + 1 %>
+                                </div>
+
+                                <div class="suggestion-text">
+                                    <%= suggestion %>
+                                </div>
+
+                            </li>
+
+                        <% }); %>
+
+                    </ul>
+
+                <% } else { %>
+
+                    <p class="empty-message">
+                        No additional rule-based suggestions were generated.
+                    </p>
+
+                <% } %>
+
+            </div>
+
+
+            <!-- =========================
+                 MATCHED / MISSING SKILLS
+            ========================= -->
+
+            <div class="results-grid">
+
+                <!-- MATCHED SKILLS -->
+
+                <div class="result-card">
+
+                    <h2>
+                        Matched Skills
+                    </h2>
+
+                    <% if (matchData.matchedSkills.length > 0) { %>
+
+                        <div class="tag-list">
+
+                            <% matchData.matchedSkills.forEach(function(
+                                skill
+                            ) { %>
+
+                                <span class="tag tag-success">
+                                    ✓ <%= skill %>
+                                </span>
+
+                            <% }); %>
+
+                        </div>
+
+                    <% } else { %>
+
+                        <p class="empty-message">
+                            No required skills were matched.
+                        </p>
+
+                    <% } %>
+
+                </div>
+
+
+                <!-- MISSING SKILLS -->
+
+                <div class="result-card">
+
+                    <h2>
+                        Missing Skills
+                    </h2>
+
+                    <% if (matchData.missingSkills.length > 0) { %>
+
+                        <div class="tag-list">
+
+                            <% matchData.missingSkills.forEach(function(
+                                skill
+                            ) { %>
+
+                                <span class="tag tag-danger">
+                                    ✗ <%= skill %>
+                                </span>
+
+                            <% }); %>
+
+                        </div>
+
+                    <% } else { %>
+
+                        <p class="empty-message">
+                            Great! No required skills are missing.
+                        </p>
+
+                    <% } %>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 KEYWORDS
+            ========================= -->
+
+            <div class="results-grid">
+
+                <!-- MATCHED KEYWORDS -->
+
+                <div class="result-card">
+
+                    <h2>
+                        Matched Keywords
+                    </h2>
+
+                    <% if (matchData.matchedKeywords.length > 0) { %>
+
+                        <div class="tag-list">
+
+                            <% matchData.matchedKeywords.forEach(function(
+                                keyword
+                            ) { %>
+
+                                <span class="tag tag-success">
+                                    ✓ <%= keyword %>
+                                </span>
+
+                            <% }); %>
+
+                        </div>
+
+                    <% } else { %>
+
+                        <p class="empty-message">
+                            No target keywords were detected.
+                        </p>
+
+                    <% } %>
+
+                </div>
+
+
+                <!-- MISSING KEYWORDS -->
+
+                <div class="result-card">
+
+                    <h2>
+                        Missing Keywords
+                    </h2>
+
+                    <% if (matchData.missingKeywords.length > 0) { %>
+
+                        <div class="tag-list">
+
+                            <% matchData.missingKeywords.forEach(function(
+                                keyword
+                            ) { %>
+
+                                <span class="tag tag-danger">
+                                    ✗ <%= keyword %>
+                                </span>
+
+                            <% }); %>
+
+                        </div>
+
+                    <% } else { %>
+
+                        <p class="empty-message">
+                            Great! Your resume contains all detected keywords.
+                        </p>
+
+                    <% } %>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 PREFERRED SKILLS
+            ========================= -->
+
+            <div class="result-card full-width">
+
+                <h2>
+                    Preferred Skills Matched
+                </h2>
+
+                <% if (matchData.matchedPreferredSkills.length > 0) { %>
+
+                    <div class="tag-list">
+
+                        <% matchData.matchedPreferredSkills.forEach(
+                            function(skill)
+                        { %>
+
+                            <span class="tag tag-neutral">
+                                ✓ <%= skill %>
+                            </span>
+
+                        <% }); %>
+
+                    </div>
+
+                <% } else { %>
+
+                    <p class="empty-message">
+                        No preferred skills were matched.
+                    </p>
+
+                <% } %>
+
+            </div>
+
+
+            <!-- =========================
+                 RESUME SECTIONS
+            ========================= -->
+
+            <div class="result-card full-width">
+
+                <h2>
+                    Resume Sections Detected
+                </h2>
+
+                <div class="info-list">
+
+
+                    <!-- SUMMARY -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Summary
+                        </span>
+
+                        <% if (resumeData.sections.summary) { %>
+
+                            <span class="status status-detected">
+                                ✓ Detected
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="status status-missing">
+                                ✗ Not detected
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+
+                    <!-- SKILLS -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Skills
+                        </span>
+
+                        <% if (resumeData.sections.skills) { %>
+
+                            <span class="status status-detected">
+                                ✓ Detected
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="status status-missing">
+                                ✗ Not detected
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+
+                    <!-- EDUCATION -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Education
+                        </span>
+
+                        <% if (resumeData.sections.education) { %>
+
+                            <span class="status status-detected">
+                                ✓ Detected
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="status status-missing">
+                                ✗ Not detected
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+
+                    <!-- EXPERIENCE -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Experience
+                        </span>
+
+                        <% if (resumeData.sections.experience) { %>
+
+                            <span class="status status-detected">
+                                ✓ Detected
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="status status-missing">
+                                ✗ Not detected
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+
+                    <!-- PROJECTS -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Projects
+                        </span>
+
+                        <% if (resumeData.sections.projects) { %>
+
+                            <span class="status status-detected">
+                                ✓ Detected
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="status status-missing">
+                                ✗ Not detected
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+
+                    <!-- CERTIFICATIONS -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Certifications
+                        </span>
+
+                        <% if (resumeData.sections.certifications) { %>
+
+                            <span class="status status-detected">
+                                ✓ Detected
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="status status-missing">
+                                ✗ Not detected
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+
+                    <!-- ACHIEVEMENTS -->
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Achievements
+                        </span>
+
+                        <% if (resumeData.sections.achievements) { %>
+
+                            <span class="status status-detected">
+                                ✓ Detected
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="status status-missing">
+                                ✗ Not detected
+                            </span>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 EXTRACTED TEXT
+            ========================= -->
+
+            <div class="result-card full-width">
+
+                <h2>
+                    Extracted Resume Text
+                </h2>
+
+                <div class="resume-preview">
+                    <%= resumeText %>
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 ACTION
+            ========================= -->
+
+          <div class="action-area">
+
+    <form
+        action="/optimize/generate"
+        method="POST"
+        style="margin-bottom: 15px;"
+    >
+
+        <input
+            type="hidden"
+            name="resumeText"
+            value="<%= resumeText %>"
+        >
+
+        <input
+            type="hidden"
+            name="jobDescription"
+            value="<%= jobData.rawText %>"
+        >
+
+        <button
+            type="submit"
+            class="secondary-btn"
+            style="
+                border: none;
+                cursor: pointer;
+                background: #7c3aed;
+            "
+        >
+            ✨ Generate Optimized Resume
+        </button>
+
+    </form>
+
+
+    <a
+        href="/optimize"
+        class="secondary-btn"
+    >
+        Analyze Another Resume
+    </a>
+
+</div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer class="footer">
+
+        <div class="container footer-container">
+
+            <div>
+
+                <a href="/" class="logo">
+                    Resume<span>Optimizer</span>
+                </a>
+
+                <p>
+                    AI-powered resume optimization for candidates.
+                </p>
+
+            </div>
+
+            <p class="copyright">
+                © 2026 Resume Optimizer. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

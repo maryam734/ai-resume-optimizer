@@ -1,0 +1,35 @@
+{
+  "name": "resume-optimizer",
+  "version": "1.0.0",
+  "description": "AI-powered Resume Optimizer for candidates",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "resume",
+    "ai",
+    "ats",
+    "job",
+    "optimizer"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^2.17.1",
+    "connect-mongo": "^6.0.0",
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "ejs-mate": "^4.0.0",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "mammoth": "^1.12.1",
+    "mongoose": "^9.9.2",
+    "multer": "^2.2.0",
+    "pdf-parse": "^2.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
