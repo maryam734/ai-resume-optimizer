@@ -9,17 +9,15 @@
 ---
 ## Screenshots
 
-### Home Page
-![Home Page](screenshots/...)
-
 ### Resume Optimization
-![Resume Optimization](screenshots/...)
+![Resume Optimization](screenshots/resumeoptimize.png)
 
 ### Optimized Resume
-![Optimized Resume](screenshots/...)
+![Optimized Resume](screenshots/optimized%20resume.png)
 
 ### AI-Based Insights
-![AI-Based Insights](screenshots/...)
+![AI-Based Insights](screenshots/ai%20based%20insights.png)
+
 
 ## Overview
 
