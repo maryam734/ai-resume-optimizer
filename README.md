@@ -3,7 +3,8 @@
 > An AI-powered resume optimization platform that analyzes resumes against job descriptions, evaluates job compatibility, identifies skill and keyword gaps, and generates ATS-focused improvement recommendations.
 
 **Live Demo:** https://ai-resume-optimizer-vyll.onrender.com
-**GitHub Repository:** https://github.com/maryam734/ai-resume-optimizer
+
+**GitHub Repository:** https://github.com/maryam734/ai-resume-optimizerer
 
 ---
 
